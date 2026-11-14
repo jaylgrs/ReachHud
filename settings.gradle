@@ -10,7 +10,3 @@ pluginManagement {
 }
 
 rootProject.name = 'ReachHUD'
-
-include ':26.1'
-include ':26.2'
-include ':1.21.11'
