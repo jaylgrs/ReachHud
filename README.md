@@ -1,46 +1,105 @@
+# ReachHUD
 
-# Hey, I'm JayLgrs
+**A real-time reach indicator for Minecraft.**
 
-Java developer, Minecraft creator, and the founder of Astra Studio.
+ReachHUD is a client-side Fabric mod designed to provide useful combat information through an in-game HUD. It helps players monitor target distance and reach information during gameplay.
 
-I build software, Minecraft mods and plugins, and web projects. I'm currently focusing on improving my Java programming skills and learning how to design, build, and maintain software independently.
+> **BETA NOTICE:** ReachHUD for Minecraft 26.3 is currently in beta. Some features may be unstable, incomplete, or subject to change. Bugs and unexpected behavior are possible.
 
-## About Me
+## Features
 
-- Learning and building with Java
-- Creating Minecraft mods and server plugins
-- Developing web projects under Astra Studio
-- Interested in software engineering and open-source development
-- Always learning by building real projects
+- **Real-time Reach Display** – Displays the distance between you and your current target.
+- **Target Tracking** – Identifies and tracks the entity you are looking at.
+- **Projectile Tracking** – Includes projectile trajectory calculations for more accurate distance and collision prediction.
+- **Interaction Reach** – Provides information related to player interaction distance.
+- **Movement Detection** – Tracks relevant movement information.
+- **Jump Height** – Displays jump-related information.
+- **HUD Toggle** – Enable or disable the HUD using a configurable keybind.
+- **HUD Notifications** – Displays notifications when toggling the HUD.
 
-## Featured Projects
+## Compatibility
 
-### ReachHUD
-A lightweight client-side Minecraft Fabric mod that displays real-time reach distance and target information.
+| Requirement | Version |
+|---|---|
+| Minecraft | 26.3 |
+| Mod Loader | Fabric |
+| Environment | Client-side |
+| Java | Java 25 |
 
-[View Repository](https://github.com/jaylgrs/ReachHUD)
+**Dependencies:**
+- Fabric Loader
+- Fabric API
 
-### CreditQuest
-My first self-developed Java console game, built as a way to practice Java programming and problem-solving.
+## Installation
 
-[View GitHub Profile](https://github.com/jaylgrs)
+1. Install Fabric Loader for Minecraft 26.3.
+2. Download the latest ReachHUD release.
+3. Download the required dependencies.
+4. Place the ReachHUD `.jar` file inside your Minecraft `mods` folder.
+5. Launch Minecraft using your Fabric installation.
 
-### Astra Studio
-My independent studio for software projects, Minecraft creations, web development, and digital services.
+## Controls
 
-[Visit Website](https://astrastudio.site)
+| Keybind | Action |
+|---|---|
+| Right Control | Toggle ReachHUD |
 
-## Tech Stack
+The HUD toggle keybind is configurable through Minecraft's Controls settings.
 
-**Languages:** Java, JavaScript, TypeScript
+## Development
 
-**Areas of Interest:** Minecraft Development, Web Development, Software Engineering
+ReachHUD is built using Java and the Fabric modding ecosystem.
 
-## Find Me Online
+### Building from Source
 
-- GitHub: https://github.com/jaylgrs
-- Astra Studio: https://astrastudio.site
+Clone the repository:
+
+```bash
+git clone YOUR_REPOSITORY_URL
+cd ReachHUD
+```
+
+Build the project:
+
+```bash
+./gradlew build
+```
+
+For Windows:
+
+```powershell
+.\gradlew.bat build
+```
+
+The compiled JAR files can be found in:
+
+```text
+build/libs/
+```
+
+## Beta Status
+
+ReachHUD 0.9.4 for Minecraft 26.3 is currently a beta release.
+
+During this testing phase, the project may receive:
+- Bug fixes and stability improvements.
+- HUD behavior and visual adjustments.
+- Improvements to target and projectile calculations.
+- Performance optimizations.
+- Compatibility updates.
+
+Feedback and bug reports are welcome and will help improve future releases.
+
+## License
+
+ReachHUD is licensed under the **MIT License**.
+
+See the `LICENSE` file for more information.
+
+## Links
+
+- [Modrinth](https://modrinth.com/mod/reachhud)
 
 ---
 
-*Learning, building, and improving one project at a time.*
+**ReachHUD** — Know your reach. Stay in control.
