@@ -38,11 +38,14 @@ ReachHUD is a client-side Fabric mod designed to provide useful combat informati
 4. Place the ReachHUD `.jar` file inside your Minecraft `mods` folder.
 5. Launch Minecraft using your Fabric installation.
 
+<<<<<<< HEAD
 ## Controls
 
 | Keybind | Action |
 |---|---|
 | Right Control | Toggle ReachHUD |
+=======
+>>>>>>> 116c25906c3ab7ee00ba0b6a43eeadcce519e623
 
 The HUD toggle keybind is configurable through Minecraft's Controls settings.
 
@@ -52,6 +55,7 @@ ReachHUD is built using Java and the Fabric modding ecosystem.
 
 ### Building from Source
 
+<<<<<<< HEAD
 Clone the repository:
 
 ```bash
@@ -99,6 +103,9 @@ See the `LICENSE` file for more information.
 ## Links
 
 - [Modrinth](https://modrinth.com/mod/reachhud)
+=======
+- GitHub: https://github.com/jaylgrs
+>>>>>>> 116c25906c3ab7ee00ba0b6a43eeadcce519e623
 
 ---
 
