@@ -25,10 +25,6 @@ My first self-developed Java console game, built as a way to practice Java progr
 
 [View GitHub Profile](https://github.com/jaylgrs)
 
-### Astra Studio
-My independent studio for software projects, Minecraft creations, web development, and digital services.
-
-[Visit Website](https://astrastudio.site)
 
 ## Tech Stack
 
@@ -39,7 +35,6 @@ My independent studio for software projects, Minecraft creations, web developmen
 ## Find Me Online
 
 - GitHub: https://github.com/jaylgrs
-- Astra Studio: https://astrastudio.site
 
 ---
 
