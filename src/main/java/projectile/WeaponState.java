@@ -1,3 +1,4 @@
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -53,16 +54,17 @@ public final class WeaponState {
             return none();
         }
 
-        ItemStack mainHand = client.player.getMainHandItem();
-        ItemStack offHand = client.player.getOffhandItem();
-
-        ItemStack weapon = findWeapon(mainHand, offHand);
+        ItemStack weapon = findWeapon(
+                client.player.getMainHandItem(),
+                client.player.getOffhandItem()
+        );
 
         if (weapon.isEmpty()) {
             return none();
         }
 
-        boolean usingWeapon = client.player.isUsingItem();
+        boolean usingWeapon = client.player.isUsingItem()
+                && client.player.getUseItem() == weapon;
 
         if (weapon.is(Items.BOW)) {
             int useTicks = usingWeapon
@@ -87,12 +89,9 @@ public final class WeaponState {
             boolean loaded = isCrossbowLoaded(weapon);
             int multishotLevel = getMultishotLevel(weapon);
 
-            ProjectileType projectileType =
-                    getCrossbowProjectileType(weapon);
-
             return new WeaponState(
                     WeaponType.CROSSBOW,
-                    projectileType,
+                    getCrossbowProjectileType(weapon),
                     usingWeapon,
                     loaded,
                     0,
@@ -123,14 +122,9 @@ public final class WeaponState {
             return ProjectileType.NONE;
         }
 
-        ItemStack projectile =
-                chargedProjectiles.itemCopies()
-                        .findFirst()
-                        .orElse(ItemStack.EMPTY);
-
-        if (projectile.isEmpty()) {
-            return ProjectileType.NONE;
-        }
+        ItemStack projectile = chargedProjectiles.itemCopies()
+                .findFirst()
+                .orElse(ItemStack.EMPTY);
 
         if (projectile.is(Items.FIREWORK_ROCKET)) {
             return ProjectileType.FIREWORK;
@@ -160,10 +154,9 @@ public final class WeaponState {
             boolean isMultishot =
                     enchantment.unwrapKey()
                             .map(key ->
-                                    key.toString()
-                                            .equals(
-                                                    "ResourceKey[minecraft:enchantment / minecraft:multishot]"
-                                            )
+                                    key.toString().equals(
+                                            "ResourceKey[minecraft:enchantment / minecraft:multishot]"
+                                    )
                             )
                             .orElse(false);
 

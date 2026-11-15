@@ -1,3 +1,4 @@
+
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -27,21 +28,48 @@ public final class FireworkPhysics {
 
         double travelledDistance = 0.0;
 
-        for (int tick = 0; tick < 200; tick++) {
-            Vec3 nextPosition =
-                    position.add(velocity);
+        AABB expandedTarget =
+                targetBox.inflate(PROJECTILE_HALF_SIZE);
 
-            if (segmentIntersectsTarget(
+        for (int tick = 0; tick < 200; tick++) {
+            double segmentLength = velocity.length();
+
+            if (segmentLength <= 0.0) {
+                break;
+            }
+
+            double remainingDistance =
+                    MAX_DISTANCE - travelledDistance;
+
+            if (remainingDistance <= 0.0) {
+                break;
+            }
+
+            boolean reachesMaxDistance =
+                    segmentLength >= remainingDistance;
+
+            Vec3 nextPosition = reachesMaxDistance
+                    ? position.add(
+                            velocity.scale(
+                                    remainingDistance / segmentLength
+                            )
+                    )
+                    : position.add(velocity);
+
+            var hit = expandedTarget.clip(
                     position,
-                    nextPosition,
-                    targetBox
-            )) {
+                    nextPosition
+            );
+
+            if (hit.isPresent()) {
+                Vec3 hitPosition = hit.get();
+
                 double hitDistance =
                         travelledDistance
-                                + position.distanceTo(nextPosition);
+                                + position.distanceTo(hitPosition);
 
                 return TrajectoryResult.hit(
-                        nextPosition,
+                        hitPosition,
                         hitDistance
                 );
             }
@@ -49,7 +77,7 @@ public final class FireworkPhysics {
             travelledDistance +=
                     position.distanceTo(nextPosition);
 
-            if (travelledDistance >= MAX_DISTANCE) {
+            if (reachesMaxDistance) {
                 break;
             }
 
@@ -63,21 +91,6 @@ public final class FireworkPhysics {
         }
 
         return TrajectoryResult.miss();
-    }
-
-    private static boolean segmentIntersectsTarget(
-            Vec3 start,
-            Vec3 end,
-            AABB targetBox
-    ) {
-        AABB expandedTarget =
-                targetBox.inflate(
-                        PROJECTILE_HALF_SIZE
-                );
-
-        return expandedTarget
-                .clip(start, end)
-                .isPresent();
     }
 
     public record TrajectoryResult(

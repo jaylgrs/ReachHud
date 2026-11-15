@@ -1,6 +1,10 @@
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public final class AimTracker {
@@ -270,9 +274,29 @@ public final class AimTracker {
         Vec3 direction =
                 client.player.getViewVector(1.0F);
 
+        Vec3 end =
+                start.add(
+                        direction.scale(MAX_AIM_DISTANCE)
+                );
+
+        BlockHitResult blockHit =
+                client.level.clip(
+                        new ClipContext(
+                                start,
+                                end,
+                                ClipContext.Block.COLLIDER,
+                                ClipContext.Fluid.NONE,
+                                client.player
+                        )
+                );
+
+        double blockDistance =
+                blockHit.getType() == HitResult.Type.MISS
+                        ? MAX_AIM_DISTANCE
+                        : start.distanceTo(blockHit.getLocation());
+
         Entity closestEntity = null;
-        double closestDistance =
-                MAX_AIM_DISTANCE;
+        double closestDistance = blockDistance;
 
         AABB searchBox =
                 client.player

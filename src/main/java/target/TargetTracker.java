@@ -1,6 +1,10 @@
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
@@ -38,7 +42,7 @@ public final class TargetTracker {
     }
 
     private static Entity findExtendedTarget(Minecraft client) {
-        if (client.player == null) {
+        if (client.player == null || client.level == null) {
             return null;
         }
 
@@ -52,9 +56,26 @@ public final class TargetTracker {
 
         Vec3 eyePosition = client.player.getEyePosition();
         Vec3 viewVector = client.player.getViewVector(1.0F);
+
         Vec3 endPosition = eyePosition.add(
                 viewVector.scale(maxDistance)
         );
+
+        BlockHitResult blockHit = client.level.clip(
+                new ClipContext(
+                        eyePosition,
+                        endPosition,
+                        ClipContext.Block.COLLIDER,
+                        ClipContext.Fluid.NONE,
+                        client.player
+                )
+        );
+
+        double blockDistance = blockHit.getType() == HitResult.Type.MISS
+                ? maxDistance
+                : eyePosition.distanceTo(blockHit.getLocation());
+
+        double closestDistance = blockDistance * blockDistance;
 
         AABB searchBox = client.player
                 .getBoundingBox()
@@ -64,7 +85,6 @@ public final class TargetTracker {
                 .inflate(1.0);
 
         Entity closestEntity = null;
-        double closestDistance = maxDistance * maxDistance;
 
         for (Entity entity : client.player.level().getEntities(
                 client.player,
