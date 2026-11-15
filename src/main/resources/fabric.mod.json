@@ -5,7 +5,8 @@
   "name": "ReachHUD",
   "description": "A lightweight client-side HUD that displays real-time reach distance while aiming at entities.",
   "authors": [
-    "SwiftNet"
+    "SwiftNet",
+    "Jay"
   ],
   "contact": {},
   "license": "MIT",
