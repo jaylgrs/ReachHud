@@ -1,5 +1,10 @@
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public final class FireworkPhysics {
@@ -13,11 +18,15 @@ public final class FireworkPhysics {
     }
 
     public static TrajectoryResult simulate(
+            Level level,
+            Entity source,
             Vec3 startPosition,
             Vec3 initialVelocity,
             AABB targetBox
     ) {
-        if (startPosition == null
+        if (level == null
+                || source == null
+                || startPosition == null
                 || initialVelocity == null
                 || targetBox == null) {
             return TrajectoryResult.miss();
@@ -56,22 +65,47 @@ public final class FireworkPhysics {
                     )
                     : position.add(velocity);
 
-            var hit = expandedTarget.clip(
+            var targetHit = expandedTarget.clip(
                     position,
                     nextPosition
             );
 
-            if (hit.isPresent()) {
-                Vec3 hitPosition = hit.get();
+            BlockHitResult blockHit =
+                    level.clip(
+                            new ClipContext(
+                                    position,
+                                    nextPosition,
+                                    ClipContext.Block.COLLIDER,
+                                    ClipContext.Fluid.NONE,
+                                    source
+                            )
+                    );
+
+            if (targetHit.isPresent()) {
+                Vec3 hitPosition = targetHit.get();
 
                 double hitDistance =
-                        travelledDistance
-                                + position.distanceTo(hitPosition);
+                        position.distanceTo(hitPosition);
+
+                if (blockHit.getType() != HitResult.Type.MISS) {
+                    double blockDistance =
+                            position.distanceTo(
+                                    blockHit.getLocation()
+                            );
+
+                    if (blockDistance <= hitDistance) {
+                        return TrajectoryResult.miss();
+                    }
+                }
 
                 return TrajectoryResult.hit(
                         hitPosition,
-                        hitDistance
+                        travelledDistance + hitDistance
                 );
+            }
+
+            if (blockHit.getType() != HitResult.Type.MISS) {
+                break;
             }
 
             travelledDistance +=

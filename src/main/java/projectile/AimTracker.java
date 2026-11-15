@@ -69,6 +69,7 @@ public final class AimTracker {
 
         if (weaponState.isFirework()) {
             willHit = simulateFirework(
+                    client,
                     startPosition,
                     direction,
                     targetBox
@@ -84,6 +85,7 @@ public final class AimTracker {
 
             if (!weaponState.hasMultishot()) {
                 willHit = simulateTrajectory(
+                        client,
                         startPosition,
                         direction,
                         projectileSpeed,
@@ -91,6 +93,7 @@ public final class AimTracker {
                 );
             } else {
                 willHit = simulateMultishot(
+                        client,
                         startPosition,
                         direction,
                         projectileSpeed,
@@ -107,6 +110,7 @@ public final class AimTracker {
     }
 
     private static boolean simulateTrajectory(
+            Minecraft client,
             Vec3 startPosition,
             Vec3 direction,
             double projectileSpeed,
@@ -117,6 +121,8 @@ public final class AimTracker {
 
         Physics.TrajectoryResult result =
                 Physics.simulate(
+                        client.level,
+                        client.player,
                         startPosition,
                         initialVelocity,
                         targetBox
@@ -126,6 +132,7 @@ public final class AimTracker {
     }
 
     private static boolean simulateFirework(
+            Minecraft client,
             Vec3 startPosition,
             Vec3 direction,
             AABB targetBox
@@ -135,6 +142,8 @@ public final class AimTracker {
 
         FireworkPhysics.TrajectoryResult result =
                 FireworkPhysics.simulate(
+                        client.level,
+                        client.player,
                         startPosition,
                         initialVelocity,
                         targetBox
@@ -144,12 +153,14 @@ public final class AimTracker {
     }
 
     private static boolean simulateMultishot(
+            Minecraft client,
             Vec3 startPosition,
             Vec3 direction,
             double projectileSpeed,
             AABB targetBox
     ) {
         if (simulateTrajectory(
+                client,
                 startPosition,
                 direction,
                 projectileSpeed,
@@ -165,6 +176,7 @@ public final class AimTracker {
                 );
 
         if (simulateTrajectory(
+                client,
                 startPosition,
                 leftDirection,
                 projectileSpeed,
@@ -180,6 +192,7 @@ public final class AimTracker {
                 );
 
         return simulateTrajectory(
+                client,
                 startPosition,
                 rightDirection,
                 projectileSpeed,
