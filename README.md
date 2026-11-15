@@ -1,6 +1,16 @@
+<div align="center">
+
+<a href="https://modrinth.com/mod/reachhud">
+  <img src="src/main/resources/assets/reachhud/icon.png" width="128" alt="ReachHUD Icon">
+</a>
+
 # ReachHUD
 
 ReachHUD is a client-side Fabric mod that displays reach information while aiming at entities. It also includes projectile trajectory prediction for bows and crossbows.
+
+</div>
+
+---
 
 ## Features
 
@@ -32,9 +42,11 @@ The simulation checks whether the projectile's path intersects the target's hitb
 The HUD appears below the crosshair and displays relevant target information.
 
 It includes:
+
 - Smooth distance updates
 - Fade-in and fade-out animations
-- Different target name colors
+- Red or green target indicators depending on entity type
+- White target names
 - Reach and hit indicators
 
 ## Controls
@@ -43,7 +55,7 @@ Press **Right Control** to toggle the HUD.
 
 You can also change the keybind through Minecraft's Controls settings under the ReachHUD category.
 
-The HUD's enabled state is saved in the configuration file:
+The HUD's enabled state is saved in:
 
 `config/reachhud.properties`
 
@@ -68,7 +80,7 @@ ReachHUD is a client-side mod. It does not modify server reach or change Minecra
 
 ## Links
 
-- [GitHub](https://github.com/jaylgrs/ReachHUD-MultiVersion-PublicRepo)
+- [GitHub](https://github.com/jaylgrs/ReachHud)
 - [Modrinth](https://modrinth.com/mod/reachhud)
 
 Not affiliated with Mojang or Microsoft.
