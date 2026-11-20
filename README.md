@@ -12,6 +12,9 @@ ReachHUD is a client-side Fabric mod that displays reach information while aimin
 
 ---
 
+# Note:
+This mod was created using the Fabric template mod (https://fabricmc.net/develop/template/), but it is not an AI-generated project. All code and implementation are human-written.
+
 ## Features
 
 ### Melee Reach
