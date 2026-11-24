@@ -1,0 +1,25 @@
+plugins {
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neoforge_version}"
+    implementation project(':common')
+}
+
+neoForge {
+    version = neoforge_version
+
+    mods {
+        reachhud {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+tasks.named('jar', Jar) {
+    archiveBaseName = 'ReachHUD'
+    archiveVersion = project.version
+
+    from project(':common').sourceSets.main.output
+}

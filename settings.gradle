@@ -1,12 +1,15 @@
 pluginManagement {
     repositories {
         maven {
-            name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
     }
 }
 
 rootProject.name = 'ReachHUD'
+
+include 'common'
+include 'fabric'
+include 'neoforge'

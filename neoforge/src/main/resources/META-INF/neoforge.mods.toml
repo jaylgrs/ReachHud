@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[0,)"
+license="MIT"
+
+[[mods]]
+modId="reachhud"
+version="0.9.4+26.3"
+displayName="ReachHUD"
+authors="SwiftNet, Jay"
+description='''
+A lightweight client-side HUD that displays real-time melee reach distance when targeting entities.
+'''
+
+[[dependencies.reachhud]]
+modId="neoforge"
+type="required"
+versionRange="[26.3.0.101,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.reachhud]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="CLIENT"
