@@ -1,7 +1,7 @@
 <div align="center">
 
 <a href="https://modrinth.com/mod/reachhud">
-  <img src="src/main/resources/assets/reachhud/icon.png" width="128" alt="ReachHUD Icon">
+  <img src="common/src/main/resources/assets/reachhud/icon.png" width="128" alt="ReachHUD Icon">
 </a>
 
 # ReachHUD
