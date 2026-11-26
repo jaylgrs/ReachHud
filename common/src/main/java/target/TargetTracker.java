@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public final class TargetTracker {
 
-    private static final double DISPLAY_ADVANCE = 3.0;
+    public static final double DISPLAY_ADVANCE = 3.0;
 
     private static Entity currentTarget;
 

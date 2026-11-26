@@ -20,7 +20,7 @@ import net.neoforged.neoforge.common.NeoForge;
 public final class NeoForgeClient {
 
     private static final KeyMapping.Category CATEGORY =
-            KeyMapping.Category.register(
+            new KeyMapping.Category(
                     Identifier.fromNamespaceAndPath(
                             "reachhud",
                             "reachhud"
@@ -41,7 +41,7 @@ public final class NeoForgeClient {
 
         KeyMapping key = new KeyMapping(
                 "key.reachhud.toggle",
-                InputConstants.Type.KEYBOARD,
+                InputConstants.Type.KEYSYM,
                 InputConstants.KEY_RCONTROL,
                 CATEGORY
         );

@@ -22,10 +22,6 @@ public final class RenderState {
         hudAlpha = 0.0;
     }
 
-    public static void resetSmoothingValuesOnly() {
-        resetMeleeSmoothingOnly();
-    }
-
     public static void resetMeleeSmoothingOnly() {
         lastTarget = null;
         displayedDistance = -1.0;

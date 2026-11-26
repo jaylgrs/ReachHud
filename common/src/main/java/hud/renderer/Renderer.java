@@ -13,7 +13,6 @@ public final class Renderer {
 
     private static final double SMOOTH_SPEED = 0.25;
     private static final double FADE_SPEED = 0.75;
-    private static final double MAX_DISTANCE_ADVANCE = 3.0;
 
     private static long lastFrameTime = System.nanoTime();
 
@@ -36,14 +35,7 @@ public final class Renderer {
         renderNotification(graphics, client);
 
         if (!Keybind.isEnabled()) {
-            updateHudAlpha(false, deltaSeconds);
-            renderCachedMeleeHud(graphics, client);
-
-            if (RenderState.hudAlpha <= 0.001) {
-                RenderState.clearMeleeCache();
-            }
-
-            RenderState.resetMeleeSmoothingOnly();
+            fadeOutMeleeHud(graphics, client, deltaSeconds);
             return;
         }
 
@@ -58,9 +50,7 @@ public final class Renderer {
         Entity target = TargetTracker.getCurrentTarget();
 
         if (target == null) {
-            updateHudAlpha(false, deltaSeconds);
-            renderCachedMeleeHud(graphics, client);
-            RenderState.resetMeleeSmoothingOnly();
+            fadeOutMeleeHud(graphics, client, deltaSeconds);
             return;
         }
 
@@ -68,10 +58,8 @@ public final class Renderer {
         double reach = Calculator.getPlayerReach();
 
         if (distance < 0 || reach < 0
-                || distance > reach + MAX_DISTANCE_ADVANCE) {
-            updateHudAlpha(false, deltaSeconds);
-            renderCachedMeleeHud(graphics, client);
-            RenderState.resetMeleeSmoothingOnly();
+                || distance > reach + TargetTracker.DISPLAY_ADVANCE) {
+            fadeOutMeleeHud(graphics, client, deltaSeconds);
             return;
         }
 
@@ -92,6 +80,21 @@ public final class Renderer {
                 client,
                 RenderState.hudAlpha
         );
+    }
+
+    private static void fadeOutMeleeHud(
+            GuiGraphicsExtractor graphics,
+            Minecraft client,
+            double deltaSeconds
+    ) {
+        updateHudAlpha(false, deltaSeconds);
+        renderCachedMeleeHud(graphics, client);
+
+        if (RenderState.hudAlpha <= 0.001) {
+            RenderState.clearMeleeCache();
+        }
+
+        RenderState.resetMeleeSmoothingOnly();
     }
 
     private static void updateMeleeSmoothing(

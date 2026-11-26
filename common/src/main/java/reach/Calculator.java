@@ -37,13 +37,20 @@ public final class Calculator {
     }
 
     public static boolean isWithinReach(Entity entity) {
-        double distance = getDistanceTo(entity);
-        double reach = getPlayerReach();
+        Minecraft client = Minecraft.getInstance();
 
-        if (distance < 0 || reach < 0) {
+        if (client.player == null || entity == null) {
             return false;
         }
 
-        return distance <= reach;
+        double reach = getPlayerReach();
+
+        if (reach < 0) {
+            return false;
+        }
+
+        return entity.getBoundingBox().distanceToSqr(
+                client.player.getEyePosition()
+        ) <= reach * reach;
     }
 }

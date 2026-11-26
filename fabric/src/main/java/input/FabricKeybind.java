@@ -7,7 +7,7 @@ import net.minecraft.resources.Identifier;
 public final class FabricKeybind {
 
     private static final KeyMapping.Category CATEGORY =
-            KeyMapping.Category.register(
+            new KeyMapping.Category(
                     Identifier.fromNamespaceAndPath(
                             "reachhud",
                             "reachhud"
@@ -20,7 +20,7 @@ public final class FabricKeybind {
     public static void register() {
         KeyMapping key = new KeyMapping(
                 "key.reachhud.toggle",
-                InputConstants.Type.KEYBOARD,
+                InputConstants.Type.KEYSYM,
                 InputConstants.KEY_RCONTROL,
                 CATEGORY
         );

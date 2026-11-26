@@ -15,40 +15,6 @@ public final class MeleeRenderer {
     private MeleeRenderer() {
     }
 
-    public static void render(
-            GuiGraphicsExtractor graphics,
-            Minecraft client,
-            Entity target,
-            double distance,
-            boolean withinReach,
-            double alpha
-    ) {
-        if (target == null || alpha <= 0.001) {
-            return;
-        }
-
-        String targetName = target.getName().getString();
-
-        String distanceText = String.format(
-                Locale.ROOT,
-                "%.2f",
-                distance
-        );
-
-        int targetColor =
-                RenderUtils.getTargetNameColor(target);
-
-        renderHud(
-                graphics,
-                client,
-                targetName,
-                distanceText,
-                withinReach,
-                targetColor,
-                alpha
-        );
-    }
-
     public static void updateCache(
             Entity target,
             double distance,
